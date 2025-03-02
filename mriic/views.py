@@ -48,9 +48,9 @@ def findBlog(request):
         mydata = Blog.objects.filter(Q(Blog_title__icontains = x) | Q(Blog_id__icontains = x) | Q(Category__icontains = x))
         #print(mydata)
         if mydata:
-            return render(request,'mriic/home.html',{'blog_info':mydata})
+            return render(request,'mriic\home.html',{'blog_info':mydata})
         else:
-            return render(request,'mriic/home.html',{'warning':'No Blog Found'})
+            return render(request,'mriic\home.html',{'warning':'No Blog Found'})
 
 
 def loginUser(request):
