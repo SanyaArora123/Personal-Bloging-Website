@@ -11,13 +11,13 @@ from django.db.models import Q
 #print(blog_info)
 def home(request):
     blog_info = Blog.objects.all().order_by('-id')[:2]
-    return render(request, 'mriic\home.html', {'blog_info': blog_info})
+    return render(request, 'mriic/home.html', {'blog_info': blog_info})
 
 @login_required(login_url='loginUser')
 def blogPage(request, Blog_id):
     print(Blog_id)
     blog = get_object_or_404(Blog, id = Blog_id)
-    return render(request, r'mriic\blogPage.html',{'blog': blog})
+    return render(request, r'mriic/blogPage.html',{'blog': blog})
 
 @login_required(login_url='loginUser')
 def blog(request):
@@ -25,21 +25,21 @@ def blog(request):
     paginator = Paginator(blogs,3)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request, r'mriic\blog.html',{'page_obj':page_obj})    
+    return render(request, r'mriic/blog.html',{'page_obj':page_obj})    
 
 def about(request):
-    return render(request, r'mriic\about.html')
+    return render(request, r'mriic/about.html')
 
 def contact(request):
     if request.method == "GET":
-        return render(request, 'mriic\contact.html')
+        return render(request, 'mriic/contact.html')
     else:
         a = request.POST.get('name')
         b = request.POST.get('email')
         c = request.POST.get('message')
         data = Contact_Us(name = a, email = b, message = c)
         data.save()
-        return render(request, 'mriic\contact.html', {'x':'Message Sent Successfully!!'})
+        return render(request, 'mriic/contact.html', {'x':'Message Sent Successfully!!'})
 
 def findBlog(request):
     if request.method == "POST":
@@ -48,20 +48,20 @@ def findBlog(request):
         mydata = Blog.objects.filter(Q(Blog_title__icontains = x) | Q(Blog_id__icontains = x) | Q(Category__icontains = x))
         #print(mydata)
         if mydata:
-            return render(request,'mriic\home.html',{'blog_info':mydata})
+            return render(request,'mriic/home.html',{'blog_info':mydata})
         else:
-            return render(request,'mriic\home.html',{'warning':'No Blog Found'})
+            return render(request,'mriic/home.html',{'warning':'No Blog Found'})
 
 
 def loginUser(request):
     if request.method == "GET":
-        return render(request, 'mriic\loginUser.html',{'form':AuthenticationForm()})  
+        return render(request, 'mriic/loginUser.html',{'form':AuthenticationForm()})  
     else:
         a = request.POST.get("username")
         b = request.POST.get("password")
         user = authenticate(request, username = a, password = b) 
         if user is None:
-            return render(request, 'mriic\loginUser.html',{'form': AuthenticationForm(),'error': 'Invalid Credentials'})
+            return render(request, 'mriic/loginUser.html',{'form': AuthenticationForm(),'error': 'Invalid Credentials'})
         else:
             login(request, user)
             return redirect('home')
@@ -71,20 +71,20 @@ def logOut(request):
         return redirect('home')
 def signupUser(request):
     if request.method == "GET":
-        return render(request, 'mriic\signupUser.html',{'form':UserCreationForm()})  
+        return render(request, 'mriic/signupUser.html',{'form':UserCreationForm()})  
     else:
         a = request.POST.get("username")
         b = request.POST.get("password1")
         c = request.POST.get("password2")   
         if b == c:
             if(User.objects.filter(username = a)):
-                return render(request, 'mriic\signupUser.html', {'form':UserCreationForm(),'error': 'User already exist Try Again'})
+                return render(request, 'mriic/signupUser.html', {'form':UserCreationForm(),'error': 'User already exist Try Again'})
             else:
                 user = User.objects.create_user(username = a, password = b)
                 user.save()
                 login(request,user)
                 return redirect('home')
         else:
-            return render(request, 'mriic\signupUser.html', {'form':UserCreationForm(),'error':'Password Mismatch Try Again'})
+            return render(request, 'mriic/signupUser.html', {'form':UserCreationForm(),'error':'Password Mismatch Try Again'})
 
     
