@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Sanya Arora</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            overflow-x: hidden;
+        }
+
+        .name-title {
+            font-weight: 700;
+            color: #5a5af3;
+            letter-spacing: 1px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        .latest-blog-title {
+            font-weight: 700;
+            color: #5a5af3;
+            letter-spacing: 1px;
+        }
+
+        .carousel-item img {
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 50vh;
+            max-height: 500px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-caption {
+                padding: 10px;
+            }
+            .carousel-caption h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.25rem;
+            }
+            .carousel-caption p {
+                font-size: 0.9rem;
+                margin-bottom: 0;
+            }
+        }
+
+        .accent-line {
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(90deg, #7579ff, #b224ef);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Fixed card sizing */
+        .card-wrapper {
+            height: 430px; /* Fixed height for all devices */
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            height: 50px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            flex-grow: 1;
+            font-size: 1rem;
+            height: 75px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .blog-btn {
+            align-self: center;
+            margin-top: auto;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #7579ff, #b224ef);
+            border: none;
+            box-shadow: 0 4px 15px rgba(116, 79, 255, 0.3);
+            font-size: 0.95rem;
+        }
+
+        .blog-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(116, 79, 255, 0.4);
+            background: linear-gradient(45deg, #6266ff, #a511e0);
+        }
+
+        /* Responsive spacing adjustments */
+        .container {
+            padding: 0 15px;
+        }
+        
+        /* Warning message styling */
+        #Warning {
+            color: #dc3545;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+
+        /* Custom width for cards on mobile */
+        @media (max-width: 767px) {
+            .card-wrapper {
+                width: 320px;
+                max-width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'mriic/nav.html' %}
+
+    <!-- Carousel Start -->
+    <div class="container mt-4">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="3000">
+                    <img src="{% static 'mriic/food.webp' %}" class="d-block w-100" alt="Food">
+                    <div class="carousel-caption">
+                        <h4>Delicious Food</h4>
+                        <p>Enjoy a variety of tasty meals.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="{% static 'mriic/lifestyle.jpg' %}" class="d-block w-100" alt="Lifestyle">
+                    <div class="carousel-caption">
+                        <h4>Lifestyle & Well-being</h4>
+                        <p>Inspiration for a better living.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="{% static 'mriic/tech.jpeg' %}" class="d-block w-100" alt="Tech">
+                    <div class="carousel-caption">
+                        <h4>Latest Tech Trends</h4>
+                        <p>Stay updated with technology.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+    <!-- Carousel Ends -->
+
+    <!-- Blogs Section -->
+    <div class="container text-center my-5">
+        <h2 class="fw-bold name-title">Latest Blogs</h2>
+        <div class="accent-line"></div>
+        <div id="Warning">{{ warning }}</div>
+        <div class="row justify-content-center mt-4">
+            {% for x in blog_info %}
+            <div class="col-lg-4 col-md-6 col-sm-12 card-wrapper">
+                <div class="card">
+                    <img src="{{ x.Blog_image.url }}" class="card-img-top" alt="Blog Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ x.Blog_title }}</h5>
+                        <p class="card-text">...</p>
+                        <a href="{% url 'blogPage' x.id %}" class="btn blog-btn text-white">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include 'mriic/footer.html' %}
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

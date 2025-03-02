@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Sanya Arora</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        
+        .blog-section {
+            padding: 6rem 0;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .accent-line {
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(90deg, #7579ff, #b224ef);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        
+        .name-title {
+            font-weight: 700;
+            color: #5a5af3;
+            letter-spacing: 1px;
+        }
+        
+        .blog-btn {
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #7579ff, #b224ef);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(116, 79, 255, 0.3);
+        }
+        
+        .blog-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(116, 79, 255, 0.4);
+            background: linear-gradient(45deg, #6266ff, #a511e0);
+        }
+        
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pagination a {
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            background: linear-gradient(45deg, #7579ff, #b224ef);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a:hover {
+            background: white;
+            color: #5a5af3;
+            border: 2px solid #5a5af3;
+        }
+    </style>
+</head>
+<body>
+    {% include 'mriic/nav.html' %}
+    
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold name-title">BLOG</h1>
+            <div class="accent-line"></div>
+        </div>
+        
+        <div class="row">
+            {% for x in page_obj %}
+                <div class="col-md-4 d-flex justify-content-center mb-4">
+                    <div class="card shadow-sm" style="width: 20rem;">
+                        <img src="{{ x.Blog_image.url }}" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ x.Blog_title }}</h5>
+                            <p class="card-text text-center">...</p>
+                            <a href="{% url 'blogPage' x.id %}" class="btn blog-btn" style="color:white">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="pagination mb-5 d-flex justify-content-center">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        
+        <span class="mx-3 align-self-center">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </div>
+    
+    {% include 'mriic/footer.html' %}
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
